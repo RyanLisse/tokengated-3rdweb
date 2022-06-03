@@ -90,8 +90,9 @@ const Minting = () => {
                 <Tittle>
                     Welcome to <br />The LuffyDAO <br />
                 </Tittle>
-                <FilledButton onClick={connectWithMetamask}>
-                    Connect Wallet</FilledButton>
+                <ButtonContainer>
+                    <FilledButton onClick={connectWithMetamask}>
+                        Connect Wallet</FilledButton></ButtonContainer>
             </div>
         );
     }
