@@ -86,11 +86,12 @@ const Minting = () => {
     //if there isn't a wallet connected, display our connect MetaMask button
     if (!address) {
         return (
-            <div className="text-3xl font-black">
-                <h1>Welcome to the LuffyDAO </h1>
-                <ButtonContainer onClick={connectWithMetamask}>
-                    Connect MetaMask
-                </ButtonContainer>
+            <div className="text-4xl font-black">
+                <Tittle>
+                    Welcome to <br />The LuffyDAO <br />
+                </Tittle>
+                <FilledButton onClick={connectWithMetamask}>
+                    Connect Wallet</FilledButton>
             </div>
         );
     }
@@ -183,7 +184,7 @@ max-w-screen-xl
 flex
 flex-col
 w-full
-px-5 py-2.5 text-center
+ text-center
 
     bg-violet-300
 dark:bg-black   text-white
@@ -203,7 +204,7 @@ p-2
 
 `;
 const ButtonContainer = tw.div`
-flex
+flex items-center justify-center
 
 max-w-screen-sm
 lg:max-w-min-content
@@ -218,7 +219,8 @@ border-b-2 border-indigo-50
 const FilledButton = tw.button`
  flex items-center justify-center flex-1 text-slate-50 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl
  focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400
- font-extrabold uppercase rounded-lg text-xl px-5 py-2.5 text-center mr-2 mb-6
+ font-extrabold mt-4 h-14
+ uppercase rounded-lg text-xl text-center  mb-6
 `;
 const UnFilledButton = tw.button`
 bg-black
@@ -227,7 +229,7 @@ flex-1
 text-yellow-200
 
 relative transition-all ease-in duration-75 dark:bg-black group-hover:bg-opacity-0
-rounded-lg text-xl px-5 py-2.5 text-center mr-2 mb-6 h-14
+rounded-lg text-xl px-5  text-center  mb-6 h-14
 font-extrabold
 uppercase 
 hover:bg-yellow-300 hover:text-black
