@@ -10,6 +10,7 @@ function truncateAddress(address) {
 const Minting = () => {
     const address = useAddress();
     const connectWithMetamask = useMetamask();
+    const [totalSupply, setTotalSupply] = useState(0);
     const networkMismatched = useNetworkMismatch();
     const [, switchNetwork] = useNetwork(); // Sw
     const disconnectWallet = useDisconnect();
@@ -111,6 +112,9 @@ const Minting = () => {
             <div>
                 <h2>☠️ Congratulations! ☠️ <br />
                     Minted LuffyDAO O.G.PASS NFT! </h2>
+                <FilledButton onClick={viewOpenSea}>
+                    View Opensea
+                </FilledButton>
             </div>
         );
     }
@@ -118,45 +122,34 @@ const Minting = () => {
 
     return (
         <Container>
-            <div className="flex flex-col items-center justify-center">
-
-                <Tittle>
-                    Welcome to <br />The LuffyDAO <br />
-                </Tittle>
-                <ButtonContainer disabled={isClaiming} onClick={mintNft}>
-
-                </ButtonContainer>
-            </div>
             <Mint>
 
-                <TittleContainer>
-                    <p className="text-4xl font-black">
-                        ☠️   No LuffyDAO O.G.PASS NFTs  ☠️
+                <TittleContainer> <div className="text-4xl font-black">
+                    <Tittle>
+                        Welcome to <br />The LuffyDAO <br />
+                    </Tittle>
 
-                    </p>
-                    <span className="mt-4 ">{truncateAddress(address)} ☠️</span>
+                </div>
                 </TittleContainer>
-                <ButtonContainer >
+                <ButtonContainer>
 
                     {address ? (
                         <> {
                             completed ? <FilledButton onClick={viewOpenSea}>
                                 View Opensea
                             </FilledButton> : <FilledButton
-                                disabled={isClaiming} onClick={mintNft}>
-                                {isClaiming ? "Claiming..." : "Mint NFT"}
+                                disabled={inProgress}
+                                onClick={mint}>
                                 {
                                     inProgress ? <ReactLoading type="bubbles" color="#000" height={32} /> : "Mint"
                                 }
-
-
                             </FilledButton>
+
                         }
 
                             <UnFilledButton
                                 disabled={inProgress}
                                 onClick={disconnectWallet}>Disconnect
-
                             </UnFilledButton>
 
 
@@ -165,8 +158,7 @@ const Minting = () => {
                     ) : (
                         <>
 
-                            <FilledButton onClick={connectWithMetamask}>
-                                Connect Wallet</FilledButton>
+                            <FilledButton onClick={connectWithMetamask}>Connect Wallet</FilledButton>
 
                         </>
                     )}
@@ -181,65 +173,56 @@ const Minting = () => {
 };
 
 const Container = tw.div`
-max-w-screen-xl 
-flex
-flex-col
+max-w-screen-lg
 w-full
- text-center
+flex flex-col
+justify-center
+items-center
 
-    bg-violet-300
-dark:bg-black   text-white
 `;
 
 const Mint = tw.div`
-
-
- items-center
-    justify-center
-
-flex
-flex-col
+max-w-screen-sm
+lg:max-w-min-content
+md:w-1/2
+bg-black
+text-white
+ flex 
+ flex-col
+ justify-center items-center
 p-2
 
 
 
 `;
 const ButtonContainer = tw.div`
-flex items-center justify-center
-
-max-w-screen-sm
-lg:max-w-min-content
-md:w-1/2
+flex
+flex-col
 mt-4
-mb-5
-w-full
 
+w-full
 border-b-2 border-indigo-50
 
 `;
 const FilledButton = tw.button`
  flex items-center justify-center flex-1 text-slate-50 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl
  focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400
- font-extrabold mt-4 h-14
- uppercase rounded-lg text-xl text-center  mb-6
+ font-extrabold uppercase rounded-lg text-xl px-5 py-2.5 text-center mr-2 mb-6 mt-8 h-14
 `;
 const UnFilledButton = tw.button`
-bg-black
+bg-black py-2.5 
  flex items-center justify-center
 flex-1 
 text-yellow-200
-
-relative transition-all ease-in duration-75 dark:bg-black group-hover:bg-opacity-0
-rounded-lg text-xl px-5  text-center  mb-6 h-14
+ transition-all ease-in duration-75 dark:bg-black group-hover:bg-opacity-0
+rounded-lg text-xl px-5 text-center mb-6 h-14
 font-extrabold
 uppercase 
 hover:bg-yellow-300 hover:text-black
 `;
 const TittleContainer = tw.div`
     flex
-   flex-col
-  text-xl
-  mb-4
+   
 `;
 const Tittle = tw.h2`
     uppercase
@@ -247,7 +230,7 @@ const Tittle = tw.h2`
     font-black
     tracking-wide
     italic
-    mt-4
+    mt-3
    
 `;
 export default Minting;
